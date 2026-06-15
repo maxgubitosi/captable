@@ -690,8 +690,8 @@ model Share {
   debtCancelled       Float? // Amount of debt cancelled
   otherContributions  Float? // Other contributions
 
-  cliffYears   Int @default(0) // 0 means immediate vesting, 1 means vesting starts after 1 year
-  vestingYears Int @default(0) // 0 means immediate vesting, 1 means vesting over 1 year
+  cliffMonths   Int @default(0) @map("cliffYears") // vesting cliff in MONTHS; 0 = immediate. NB: DB column is still named "cliffYears" but stores months (unit changed 2026-06; kept the column name to avoid a db-push rename).
+  vestingMonths Int @default(0) @map("vestingYears") // total vesting period in MONTHS; 0 = immediate. DB column still named "vestingYears".
 
   companyLegends ShareLegendsEnum[] @default([])
 
@@ -742,8 +742,8 @@ model Option {
 
   type         OptionTypeEnum
   status       OptionStatusEnum @default(DRAFT)
-  cliffYears   Int              @default(0) // 0 means immediate vesting, 1 means vesting starts after 1 year
-  vestingYears Int              @default(0) // 0 means immediate vesting, 1 means vesting over 1 year
+  cliffMonths   Int              @default(0) @map("cliffYears") // vesting cliff in MONTHS; 0 = immediate. DB column still named "cliffYears".
+  vestingMonths Int              @default(0) @map("vestingYears") // total vesting period in MONTHS; 0 = immediate. DB column still named "vestingYears".
 
   issueDate         DateTime
   expirationDate    DateTime

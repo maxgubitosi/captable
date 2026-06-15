@@ -59,8 +59,8 @@ const formSchema = z.object({
   certificateId: z.string(),
   status: z.nativeEnum(SecuritiesStatusEnum),
   quantity: z.coerce.number().min(0),
-  cliffYears: z.coerce.number().min(0),
-  vestingYears: z.coerce.number().min(0),
+  cliffMonths: z.coerce.number().min(0),
+  vestingMonths: z.coerce.number().min(0),
   companyLegends: z.nativeEnum(ShareLegendsEnum).array(),
   pricePerShare: z.coerce.number().min(0),
 });
@@ -83,8 +83,8 @@ export const GeneralDetails = ({ shareClasses = [] }: GeneralDetailsProps) => {
       shareClassId: value.shareClassId,
       status: value.status,
       quantity: value.quantity,
-      cliffYears: value.cliffYears,
-      vestingYears: value.vestingYears,
+      cliffMonths: value.cliffMonths,
+      vestingMonths: value.vestingMonths,
       companyLegends: value.companyLegends ?? [],
       pricePerShare: value.pricePerShare,
     },
@@ -268,7 +268,7 @@ export const GeneralDetails = ({ shareClasses = [] }: GeneralDetailsProps) => {
             <div className="flex-1">
               <FormField
                 control={form.control}
-                name="vestingYears"
+                name="vestingMonths"
                 render={({ field }) => {
                   const { onChange, ...rest } = field;
                   return (
@@ -290,7 +290,7 @@ export const GeneralDetails = ({ shareClasses = [] }: GeneralDetailsProps) => {
                             thousandSeparator
                             allowedDecimalSeparators={["%"]}
                             decimalScale={0}
-                            suffix={field.value > 1 ? " years" : " year"}
+                            suffix={field.value > 1 ? " months" : " month"}
                             {...rest}
                             customInput={Input}
                             onValueChange={(values) => {
@@ -311,7 +311,7 @@ export const GeneralDetails = ({ shareClasses = [] }: GeneralDetailsProps) => {
             <div className="flex-1">
               <FormField
                 control={form.control}
-                name="cliffYears"
+                name="cliffMonths"
                 render={({ field }) => {
                   const { onChange, ...rest } = field;
                   return (
@@ -332,7 +332,7 @@ export const GeneralDetails = ({ shareClasses = [] }: GeneralDetailsProps) => {
                             thousandSeparator
                             allowedDecimalSeparators={["%"]}
                             decimalScale={0}
-                            suffix={field.value > 1 ? " years" : " year"}
+                            suffix={field.value > 1 ? " months" : " month"}
                             {...rest}
                             customInput={Input}
                             onValueChange={(values) => {
